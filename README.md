@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI Meeting Summarizer & Scheduler
 
-## Getting Started
+An AI-powered web application that transforms online meetings into clear summaries, actionable tasks, and smart schedules.
+Built to reduce post-meeting confusion and help users turn conversations into execution.
 
-First, run the development server:
+Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Meetings often end with unclear outcomes, forgotten tasks, and no structured follow-up.
+This project solves that problem by automatically:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Summarizing meeting conversations
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Extracting key decisions and action items
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Scheduling tasks based on meeting context
 
-## Learn More
+Providing AI-powered suggestions for next steps
 
-To learn more about Next.js, take a look at the following resources:
+The application is designed as a modern SaaS-style product using Next.js (App Router) with a clean, scalable frontend architecture.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+AI Meeting Summaries
+Automatically generate concise summaries from meeting transcripts.
 
-## Deploy on Vercel
+Task Extraction & Scheduling
+Convert spoken action items into structured tasks with due dates.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Smart Suggestions
+AI recommends follow-up actions, reminders, and improvements based on meeting content.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Clean Dashboard UI
+View past meetings, summaries, and upcoming tasks in one place.
+
+Modern Frontend Architecture
+Built with the Next.js App Router for scalability and performance.
+
+Tech Stack
+
+Frontend
+
+Next.js 13+ (App Router)
+React
+Tailwind CSS
+JavaScript
+
+Backend (Planned / In Progress)
+
+Node.js
+API routes / serverless functions
+AI integration (LLM-based summarization)
+Database for meetings and tasks
