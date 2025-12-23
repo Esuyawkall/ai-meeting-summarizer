@@ -32,3 +32,10 @@ body {
 button:hover{
   cursor: pointer;
 }
+.invert-with-dark {
+  @apply invert-0;
+}
+
+html.dark .invert-with-dark {
+  @apply invert;
+}
