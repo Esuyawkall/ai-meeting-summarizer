@@ -60,10 +60,10 @@ export default function Home() {
             Automatically summarize meetings, extract tasks, and schedule your next steps with AI.
           </p>
         </div>
-        <div className="flex flex-col md:gap-20 text-base font-medium sm:flex-row sm:gap-5">
+        <div className="flex flex-col md:gap-20 text-base font-medium sm:flex-row sm:gap-5 mb-40 mx-auto">
           <a
             className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background border border-black/8 transition-colors hover:text-white hover:bg-[#383838] dark:border-white/8 dark:hover:bg-[#ccc] dark:hover:text-black md:w-[180px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="!"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -72,7 +72,7 @@ export default function Home() {
           <a
             className="flex h-12 w-full items-center justify-center rounded-full bg-black border border-solid border-black/8 px-5 transition-colors hover:bg-black/4 hover:text-black hover:border-black/8
             dark:hover:bg-[#1a1a1a] md:w-[158px] dark:bg-white dark:hover:text-white"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="!"
             target="_blank"
             rel="noopener noreferrer"
           >
