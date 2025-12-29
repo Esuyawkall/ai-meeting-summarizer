@@ -52,10 +52,3 @@ Built with **Next.js App Router** and **React** for scalability, performance, an
 - **AI integration** (LLM-based summarization)
 - **Database** for meetings and tasks
 
----
-
-## Getting Started
-
-1. **Clone the repository:**
-```bash
-git clone https://github.com/yourusername/ai-meeting-summarizer.git
