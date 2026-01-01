@@ -1,4 +1,4 @@
-"use client"; // if you’re using App Router and this is imported in a client component
+"use client"; // if using App Router
 
 export type SummaryResult = {
   summary: string;
@@ -13,16 +13,13 @@ export const summarizeMeetingAPI = async (
     throw new Error("Meeting text is required");
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/summarize`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    }
-  );
+  const response = await fetch("/api/summarize", {  // <-- relative path
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ meetingText: text }), 
+  });
 
   if (!response.ok) {
     const errData = await response.json().catch(() => ({}));
