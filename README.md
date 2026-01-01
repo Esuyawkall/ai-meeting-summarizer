@@ -1,52 +1,54 @@
-AI Meeting Summarizer & Scheduler
+# AI Meeting Summarizer & Scheduler
 
-An AI-powered web application that transforms online meetings into clear summaries, actionable tasks, and smart schedules.
-Built to reduce post-meeting confusion and help users turn conversations into execution.
+An **AI-powered web application** that transforms online meetings into **clear summaries**, **actionable tasks**, and **smart schedules**.  
+Designed to reduce post-meeting confusion and help users turn conversations into execution.
 
-Overview
+---
 
-Meetings often end with unclear outcomes, forgotten tasks, and no structured follow-up.
+## Overview
+
+Meetings often end with **unclear outcomes**, **forgotten tasks**, and **no structured follow-up**.  
 This project solves that problem by automatically:
 
-Summarizing meeting conversations
+- **Summarizing meeting conversations**
+- **Extracting key decisions and action items**
+- **Scheduling tasks** based on meeting context
+- **Providing AI-powered suggestions** for next steps
 
-Extracting key decisions and action items
+The application is designed as a **modern SaaS-style product**, with a **scalable frontend** and **AI-powered backend integration**.
 
-Scheduling tasks based on meeting context
+---
 
-Providing AI-powered suggestions for next steps
+## Features
 
-The application is designed as a modern SaaS-style product using Next.js (App Router) with a clean, scalable frontend architecture.
+### AI Meeting Summaries
+Automatically generate concise summaries from meeting transcripts, highlighting key points and decisions.
 
-Features
+### Task Extraction & Scheduling
+Convert spoken action items into structured tasks with owners, deadlines, and priorities.
 
-AI Meeting Summaries
-Automatically generate concise summaries from meeting transcripts.
-
-Task Extraction & Scheduling
-Convert spoken action items into structured tasks with due dates.
-
-Smart Suggestions
+### Smart Suggestions
 AI recommends follow-up actions, reminders, and improvements based on meeting content.
 
-Clean Dashboard UI
-View past meetings, summaries, and upcoming tasks in one place.
+### Clean Dashboard UI
+View past meetings, summaries, and upcoming tasks in one place with an intuitive interface.
 
-Modern Frontend Architecture
-Built with the Next.js App Router for scalability and performance.
+### Modern Frontend Architecture
+Built with **Next.js App Router** and **React** for scalability, performance, and maintainability.
 
-Tech Stack
+---
 
-Frontend
+## Tech Stack
 
-Next.js 13+ (App Router)
-React
-Tailwind CSS
-JavaScript
+### Frontend
+- **Next.js 13+ (App Router)**
+- **React**
+- **Tailwind CSS**
+- **JavaScript**
 
-Backend (Planned / In Progress)
+### Backend (Planned / In Progress)
+- **Node.js**
+- **API routes / serverless functions**
+- **AI integration** (LLM-based summarization)
+- **Database** for meetings and tasks
 
-Node.js
-API routes / serverless functions
-AI integration (LLM-based summarization)
-Database for meetings and tasks
