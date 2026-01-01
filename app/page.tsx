@@ -2,36 +2,42 @@
 
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore, useCallback } from "react";
+import Summarizer from "./components/summarizer";
 
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return false;
+  const sub = useCallback((callback: () => void) => {
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
+
+  const getSnapshot = () => {
     return localStorage.getItem("darkMode") === "true";
-  });
+  };
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-    localStorage.setItem("darkMode", String(isDark));
-  }, [isDark]);
+  const getServerSnapshot = () => {
+    return false;
+  };
 
-    const toggleDarkMode = () => {
-      const newValue = !isDark;
-      setIsDark(newValue);
-      localStorage.setItem('darkMode', String(newValue));
-      if (newValue) {
-        document.documentElement.classList.add("dark");
-        
-      } 
-      else {
-        document.documentElement.classList.remove("dark");
-      }     
-      console.log("done")
-    }
-  
+  const isDark = useSyncExternalStore(sub, getSnapshot, getServerSnapshot);
+
+  if (typeof window !== 'undefined') {
+    requestAnimationFrame(() => {
+      document.documentElement.classList.toggle("dark", isDark);
+    });
+  }
+
+  const toggleDarkMode = () => {
+    const newValue = !isDark;
+    localStorage.setItem("darkMode", String(newValue));
+    document.documentElement.classList.toggle("dark", newValue);
+    window.dispatchEvent(new Event('storage'));
+    console.log("done");
+  };
+
     return(
-    <div className="flex w-full min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div suppressHydrationWarning className="flex w-full min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className=" min-h-screen w-50vw flex flex-col items-center justify-between mx-auto py-32 px-16 sm:items-start">
         <menu className="w-full fixed top-2 left-0 right-0 px-4 flex justify-between items-center md:px-20 md:top-5">
           <div className="flex space-x-5 left-0">
@@ -65,25 +71,7 @@ export default function Home() {
             Automatically summarize meetings, extract tasks, and schedule your next steps with AI.
           </p>
         </div>
-        <div className="flex flex-col md:gap-20 text-base font-medium sm:flex-row sm:gap-5 py-[8vh] mx-auto">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background border border-black/8 transition-colors hover:text-white hover:bg-[#383838] dark:border-white/8 dark:hover:bg-[#ccc] dark:hover:text-black md:w-[180px]"
-            href="!"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Record Meeting
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full bg-black border border-solid border-black/8 px-5 transition-colors hover:bg-black/4 hover:text-black hover:border-black/8
-            dark:hover:bg-[#1a1a1a] md:w-[158px] dark:bg-white dark:hover:text-white"
-            href="!"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Summarize
-          </a>
-        </div>
+        <Summarizer/>
         <footer className="w-full fixed bottom-2 left-0 right-0 px-4 flex justify-between items-center md:px-20 md:bottom-5"> 
           <a href="https://github.com/esuyawkall" className="flex h-12 items-center justify-center rounded-full border border-solid bg-foreground text-background 
           border-black/8 px-5 transition-colors hover:text-white hover:bg-[#383838] dark:border-white/8 dark:hover:bg-[#ccc] dark:hover:text-black md:w-[158px]">

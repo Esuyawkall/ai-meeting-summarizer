@@ -39,3 +39,6 @@ button:hover{
 html.dark .invert-with-dark {
   @apply invert;
 }
+html {
+  scrollbar-gutter: stable;
+}
