@@ -1,15 +1,24 @@
 "use client";
+import { useEffect } from "react";
 
 import { useState } from "react";
 import { summarizeMeetingAPI, SummaryResult } from "@/lib/api";
 
-const Summarizer = () => {
-  const [meetingText, setMeetingText] = useState<string>("");
+type SummarizerProps = {
+  initialText?: string;
+};
+
+const Summarizer = ({ initialText = "" }: SummarizerProps) => {
+  const [meetingText, setMeetingText] = useState<string>(initialText);
   const [result, setResult] = useState<SummaryResult | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const isDisabled = loading || meetingText.trim() === "";
+
+  useEffect(() => {
+    setMeetingText(initialText);
+  }, [initialText]);
 
   const handleSummarize = async (
     e: React.FormEvent<HTMLFormElement>
@@ -43,8 +52,9 @@ const Summarizer = () => {
     } finally {
       setLoading(false);
     }
+    
   };
-
+  
   return (
     <div className="w-full max-w-4xl mx-auto p-4 box-border">
       {/* FORM */}
@@ -76,7 +86,7 @@ const Summarizer = () => {
             className={`h-12 rounded-full px-5 transition-colors w-full sm:w-44 ${
               isDisabled
                 ? "bg-black cursor-not-allowed text-white dark:bg-white dark:text-black"
-                : "bg-blue-300 hover:bg-black/80 text-black dark:bg-green-300 dark:hover:bg-white/80"
+                : "bg-blue-300 hover:bg-black/80 text-black dark:bg-green-300 dark:hover:bg-white/80 hover:text-white dark:hover:text-black"
             }`}
           >
             {loading ? "Summarizing..." : "Summarize"}
@@ -113,7 +123,7 @@ const Summarizer = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">Action Items</h2>
             {result.actionItems.length ? (
-              <ul className="list-disc pl-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-1">  
                 {result.actionItems.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}
