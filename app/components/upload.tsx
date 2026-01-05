@@ -1,7 +1,7 @@
 type UploadProps = {
   fileType: "text" | "audio";
   onClose: () => void;
-  onFileRead?: (content: string | File) => void; // accept File for audio
+  onFileRead?: (content: string | File) => void;
 };
 
 export default function Upload({ fileType, onClose, onFileRead }: UploadProps) {
@@ -13,12 +13,13 @@ export default function Upload({ fileType, onClose, onFileRead }: UploadProps) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const text = event.target?.result as string;
-        if (onFileRead) onFileRead(text);
+        onFileRead?.(text);
       };
       reader.readAsText(file);
-    } else if (fileType === "audio") {
-      // Pass the File directly for audio
-      if (onFileRead) onFileRead(file);
+    }
+
+    if (fileType === "audio") {
+      onFileRead?.(file);
     }
   };
 
@@ -31,9 +32,11 @@ export default function Upload({ fileType, onClose, onFileRead }: UploadProps) {
         >
           X
         </button>
+
         <h2 className="text-lg font-semibold mb-4">
           {fileType === "text" ? "Upload Text File" : "Upload Audio File"}
         </h2>
+
         <div className="flex">
           <input
             className="border border-black dark:border-white px-2 py-1 rounded-xl"
@@ -41,9 +44,10 @@ export default function Upload({ fileType, onClose, onFileRead }: UploadProps) {
             type="file"
             accept={fileType === "text" ? ".txt,.md" : "audio/*"}
           />
+
           <button
             onClick={onClose}
-            className=" w-auto text-center min-w-[100px] text-white transition-all shadow-xl sm:w-auto bg-blue-500 hover:bg-blue-700 hover:shadow-lg shadow-blue-400
+            className="w-auto text-center min-w-[100px] text-white transition-all shadow-xl sm:w-auto bg-blue-500 hover:bg-blue-700 hover:shadow-lg shadow-blue-400
             dark:shadow-gray-600 hover:dark:shadow-sm dark:shadow-md dark:hover:bg-green-600 dark:bg-green-400 rounded-2xl px-2 py-1 mx-2"
           >
             Upload

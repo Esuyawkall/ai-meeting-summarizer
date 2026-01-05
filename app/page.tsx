@@ -11,8 +11,7 @@ export default function Page() {
   type TranscriptionResponse = {
     text?: string;
     error?: string;
-  };  
-
+  };
   // Dark mode
   const sub = useCallback((callback: () => void) => {
     window.addEventListener("storage", callback);
@@ -96,27 +95,32 @@ export default function Page() {
         setMeetingText(fileOrText as string);
       } else if (fileType === "audio") {
         const file = fileOrText as File;
+    
         try {
           setMeetingText("Transcribing audio, please wait...");
     
           const formData = new FormData();
           formData.append("file", file);
     
-          // <-- Your fetch call goes here
-          const res = await fetch("/api/transcribe", { method: "POST", body: formData });
+          const res = await fetch("/api/transcribe", {
+            method: "POST",
+            body: formData,
+          });
     
-          // Read response as text first, then parse JSON
           const resText = await res.text();
-          let data: TranscriptionResponse;
-          try {
-            data = JSON.parse(resText) as TranscriptionResponse;
-          } catch {
-            console.error("Non-JSON response from API:", resText);
-            throw new Error("Transcription API returned invalid response");
+    
+          if (!res.ok) {
+            console.error("API error:", resText);
+            throw new Error("Transcription failed");
           }
     
-          if (data.text) setMeetingText(data.text);
-          else setMeetingText("");
+          const data = JSON.parse(resText);
+    
+          if (data.text) {
+            setMeetingText(data.text);
+          } else {
+            setMeetingText("");
+          }
         } catch (err) {
           console.error("Transcription failed:", err);
           setMeetingText("");
@@ -125,6 +129,7 @@ export default function Page() {
     
       setIsOpen(false);
     }}
+    
   />
 )}
 

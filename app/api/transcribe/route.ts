@@ -1,30 +1,46 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
-
-const client = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY,
-  baseURL: "https://api.groq.com/openai/v1",
-});
 
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    const audioFile = formData.get("file") as File;
+    const file = formData.get("file");
 
-    if (!audioFile) {
-      return NextResponse.json({ error: "Audio file is required" }, { status: 400 });
+    if (!file || !(file instanceof Blob)) {
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    const transcription = await client.audio.transcriptions.create({
-      file: audioFile,
-      model: "whisper-1",
-    });
+    const audioBuffer = await file.arrayBuffer();
 
-    return NextResponse.json({ text: transcription.text });
-  } catch (err: unknown) {
-    console.error("Transcription error:", err);
+    const hfRes = await fetch(
+      "https://router.huggingface.co/models/openai/whisper-tiny",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+          "Content-Type": "application/octet-stream",
+          Accept: "application/json",
+        },
+        body: audioBuffer,
+      }
+    );
+
+    const text = await hfRes.text();
+
+    if (!hfRes.ok) {
+      console.error("HF error:", text);
+      return NextResponse.json(
+        { error: "Hugging Face transcription failed", details: text },
+        { status: 500 }
+      );
+    }
+
+    const data = JSON.parse(text);
+
+    return NextResponse.json({ text: data.text ?? "" });
+  } catch (err) {
+    console.error("Server error:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Internal server error" },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }
